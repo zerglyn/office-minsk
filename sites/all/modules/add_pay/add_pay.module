@@ -2,5 +2,6 @@
 
 function  add_pay_form_alter(&$form, $form_state ,$form_id) {
   drupal_set_message('ID формы: '.$form_id);
+  echo 'Hello World!!!';
 }
 
