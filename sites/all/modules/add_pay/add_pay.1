@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * Implements hook_menu.
+ */
+
+function add_pay_menu() {
+
+	$items = array();
+
+	$items['add_pay'] = array(
+		'title' => 'Добавить платёж',
+		'page callback' => 'main_function',
+		'type' => MENU_NORMAL_ITEM,
+		'access callback' => TRUE,
+	);
+	return $items;
+}	
+
+
+function main_function() {
+	$form = drupal_get_form('add_pay_form');
+	$form = drupal_render($form);
+	return $form;
+}
+
+
+function add_pay_form($form, &$form_state) {
+//	$form = array();
+
+	$form['#prefix'] = '<div id="add-pay-form-wrapper">';
+	$form['#suffix'] = '</div>';
+	
+	$form['#tree'] = TRUE;
+//
+//
+//
+//
+	$form['step2'] = array(
+		'#type' => 'fieldset',
+		'#title' => 'Валюта и сумма платежа',
+	);
+	
+	$form['step2']['currency'] = array(
+		'#type' => 'radios',
+		'#title' => 'Валюта платежа',
+		'#options' => array(
+			'byr' => 'Белки',
+			'rur' => 'Деревянные',
+			'usd' => 'Зелень',
+			'euro' => 'Ойрики',
+		),
+	);
+	
+	$form['step2']['summ_br'] = array(
+		'#type' => 'textfield',
+		'#title' => 'Сумма в белках',
+//		'#suffix' => 'BYR',
+		'#states' => array(
+			'visible' => array(
+				':input[name="step2[currency]"]' => array('value' => 'byr'),
+			),
+		),
+		'#maxlength' => 15,
+		'#size' => 15,
+	);
+	
+	$form['step2']['summ_rur'] = array(
+		'#type' => 'textfield',
+		'#title' => 'Сумма в русских',
+//		'#suffix' => 'RUR',
+		'#states' => array(
+			'visible' => array(
+				':input[name="step2[currency]"]' => array('value' => 'rur'),
+			),
+		),
+		'#maxlength' => 15,
+		'#size' => 15,
+	);
+	
+	$form['step2']['summ_usd'] = array(
+		'#type' => 'textfield',
+		'#title' => 'Сумма в зелени',
+//		'#suffix' => 'USD',
+		'#states' => array(
+			'visible' => array(
+				':input[name="step2[currency]"]' => array('value' => 'usd'),
+			),
+		),
+		'#maxlength' => 15,
+		'#size' => 15,
+	);
+	
+	$form['step2']['summ_euro'] = array(
+		'#type' => 'textfield',
+		'#title' => 'Сумма в ойриках',
+//		'#suffix' => 'EURO',
+		'#states' => array(
+			'visible' => array(
+				':input[name="step2[currency]"]' => array('value' => 'euro'),
+			),
+		),
+		'#maxlength' => 15,
+		'#size' => 15,
+	);
+	
+	$form['step2']['submit'] = array(
+		'#type' => 'submit',
+		'#value' => 'Отправить',
+	);
+	return $form;
+}

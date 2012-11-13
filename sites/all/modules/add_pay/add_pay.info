@@ -1,0 +1,4 @@
+name = Add Pays
+package = Custom
+description = Форма для добавления материала типа платёж.
+core = 7.x
